@@ -4,7 +4,7 @@ import UserItem from './UserItem';
 import './UserList.css';
 
 const UserList = (props) => {
-    if (props.item.length === 0) {
+    if (props.items.length === 0) {
         return (
             <div className="center">
                 <h2>No users found.</h2>
