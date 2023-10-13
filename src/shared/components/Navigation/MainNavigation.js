@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import MainHeader from './MainHeader';
 import NavLinks from './NavLinks';
 import SideDrawer from './SideDrawer';
+import Backdrop from './../UIElement/Backdrop';
 import './MainNavigation.css';
 
 const MainNavigation = props => {
@@ -11,8 +12,15 @@ const MainNavigation = props => {
     const toggleSideDrawer = () => {
         setIsDrawerOpened((prevIsDrawerOpened) => !prevIsDrawerOpened);
     };
+    const openDrawer = () => {
+        setIsDrawerOpened(true);
+    }
+    const closeDrawer = () => {
+        setIsDrawerOpened(false);
+    }
     return (
         <React.Fragment>
+            {isDrawerOpened && <Backdrop onClick={closeDrawer}/>}
             {
                 isDrawerOpened &&
                 <SideDrawer>
@@ -24,7 +32,7 @@ const MainNavigation = props => {
             <MainHeader>
                 <button
                     className="main-navigation__menu-btn"
-                    onClick={toggleSideDrawer}
+                    onClick={openDrawer}
                 >
                     <span />
                     <span />
