@@ -18,17 +18,17 @@ const MainNavigation = props => {
     const closeDrawer = () => {
         setIsDrawerOpened(false);
     }
+    const itemClickedHandler = () => {
+        closeDrawer();
+    }
     return (
         <React.Fragment>
             {isDrawerOpened && <Backdrop onClick={closeDrawer}/>}
-            {
-                isDrawerOpened &&
-                <SideDrawer>
-                    <nav className="main-navigation__drawer-nav">
-                        <NavLinks />
-                    </nav>
-                </SideDrawer>
-            }
+            <SideDrawer show={isDrawerOpened}>
+                <nav className="main-navigation__drawer-nav">
+                    <NavLinks onItemClicked={itemClickedHandler} />
+                </nav>
+            </SideDrawer>
             <MainHeader>
                 <button
                     className="main-navigation__menu-btn"
