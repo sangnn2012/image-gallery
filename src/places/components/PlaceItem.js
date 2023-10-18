@@ -8,8 +8,15 @@ import './PlaceItem.css';
 
 const PlaceItem = (props) => {
     const [showMap, setShowMap] = useState(false);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
     const openMapHandler = () => setShowMap(true);
     const closeMapHandler = () => setShowMap(false);
+    const showDeleteWarningHandler = () => setShowConfirmModal(true);
+    const closeDeleteWarningHandler = () => setShowConfirmModal(false);
+    const confirmDeleteHandler = () => {
+        console.log('DELETING...');
+        closeDeleteWarningHandler();
+    }
 
     return <React.Fragment>
         <li className="place-item">
@@ -28,6 +35,30 @@ const PlaceItem = (props) => {
                     />
                 </div>
             </Modal>
+            <Modal
+                show={showConfirmModal}
+                onCancel={closeDeleteWarningHandler}
+                header="Are you sure?"
+                footerClass="place-item__modal-actions"
+                footer={
+                    <React.Fragment>
+                        <Button
+                            inverse
+                            onClick={closeDeleteWarningHandler}
+                        >
+                            CANCEL
+                        </Button>
+                        <Button
+                            danger
+                            onClick={confirmDeleteHandler}
+                        >
+                            DELETE
+                        </Button>
+                    </React.Fragment>
+                }
+            >
+                <p>Do you want to proceed and delete this place? Please note that it can't be undone thereafter.</p>
+            </Modal>
             <Card className="place-item__content">
                 <div className="place-item__image">
                     <img src={props.image} alt={props.title} />
@@ -45,7 +76,12 @@ const PlaceItem = (props) => {
                         VIEW ON MAP
                     </Button>
                     <Button to={`/places/${props.id}`}>EDIT</Button>
-                    <Button danger>DELETE</Button>
+                    <Button
+                        danger
+                        onClick={showDeleteWarningHandler}
+                    >
+                        DELETE
+                    </Button>
                 </div>
             </Card>
         </li>
